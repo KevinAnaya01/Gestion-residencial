@@ -1,24 +1,32 @@
-// function App() {
-//   return (
-//     <div className="bg-blue-500 text-white p-8 text-center">
-//       <h1 className="text-4xl font-bold mb-4">¡Tailwind funciona! 1</h1>
-//       <p className="text-lg">
-//         Si ves este texto con fondo azul, Tailwind está configurado
-//         correctamente.
-//       </p>
-//     </div>
-//   );
-// }
-
-// export default App;
-// import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Login from "./Login";
 import "./App.css";
+import { Inicio } from "./Inicio";
+import { ProtectedRoute } from "./ProtectedRoute";
+
 
 function App() {
   return (
     <div className="App">
-      <Login />
+      <BrowserRouter>
+        <Routes>
+          {/* Ruta predeterminada - redirige a login */}
+          <Route path="/" element={<Navigate to="/login" replace />} />
+          
+          {/* Ruta de Login */}
+          <Route path="/login" element={<Login />} />
+          
+          {/* Ruta de Inicio */}
+          <Route path="/inicio" element={
+            <ProtectedRoute>
+              <Inicio />
+            </ProtectedRoute>
+          } />
+          
+          {/* Ruta para páginas no encontradas - redirige a login */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 }
