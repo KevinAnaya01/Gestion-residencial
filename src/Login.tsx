@@ -1,79 +1,18 @@
-import React, { useState } from "react";
+import React from "react";
 import { Eye, EyeOff, Mail, Lock, User } from "lucide-react";
-
-interface LoginData {
-  email: string;
-  password: string;
-}
-
-interface LoginErrors {
-  email?: string;
-  password?: string;
-}
+import { useAuth } from "./auth/use-auth";
 
 const Login: React.FC = () => {
-  const [formData, setFormData] = useState<LoginData>({
-    email: "",
-    password: "",
-  });
-  const [showPassword, setShowPassword] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errors, setErrors] = useState<LoginErrors>({});
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-
-    if (errors[name as keyof LoginErrors]) {
-      setErrors((prev) => ({
-        ...prev,
-        [name]: "",
-      }));
-    }
-  };
-
-  const validateForm = (): LoginErrors => {
-    const newErrors: LoginErrors = {};
-
-    if (!formData.email) {
-      newErrors.email = "El email es requerido";
-    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
-      newErrors.email = "El email no es válido";
-    }
-
-    if (!formData.password) {
-      newErrors.password = "La contraseña es requerida";
-    } else if (formData.password.length < 6) {
-      newErrors.password = "La contraseña debe tener al menos 6 caracteres";
-    }
-
-    return newErrors;
-  };
-
-  const handleSubmit = async () => {
-    const newErrors = validateForm();
-
-    if (Object.keys(newErrors).length > 0) {
-      setErrors(newErrors);
-      return;
-    }
-
-    setIsLoading(true);
-    // Simular llamada API
-    setTimeout(() => {
-      alert("¡Login exitoso!");
-      setIsLoading(false);
-    }, 1500);
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
-      handleSubmit();
-    }
-  };
+  const {
+    formData,
+    showPassword,
+    isLoading,
+    errors,
+    handleInputChange,
+    handleSubmit,
+    setShowPassword,
+    handleKeyPress,
+  } = useAuth();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex">
@@ -90,7 +29,7 @@ const Login: React.FC = () => {
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20">
             <div className="flex items-center justify-center h-64 bg-white/5 rounded-xl">
               <div className="text-center">
-                <User className="w-32 h-32 mx-auto mb-4 opacity-50" />
+                <User className="w-32 h-32 mx-auto mb-4 opacity-100" />
                 <p className="text-sm text-blue-200">
                   Aquí puedes colocar tu imagen
                 </p>
@@ -164,9 +103,9 @@ const Login: React.FC = () => {
                   </div>
                   <input
                     type={showPassword ? "text" : "password"}
-                    id="password"
-                    name="password"
-                    value={formData.password}
+                    id="contraseña"
+                    name="contraseña"
+                    value={formData.contraseña}
                     onChange={handleInputChange}
                     onKeyPress={handleKeyPress}
                     className={`block w-full pl-10 pr-10 py-3 border rounded-lg focus:outline-none focus:ring-2 transition-colors ${
