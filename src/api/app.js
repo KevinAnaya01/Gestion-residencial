@@ -2,6 +2,7 @@
 import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
+import routerApi from "../router.js";
 
 // Cargar variables de entorno
 dotenv.config();
@@ -11,6 +12,8 @@ const app = express();
 // Middleware
 app.use(cors()); // habilita CORS para todos los orígenes
 app.use(express.json()); // para parsear JSON en el body
+
+routerApi(app);
 
 // Variables desde .env
 const PORT = process.env.ENV_PORT || 3000;
