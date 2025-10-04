@@ -2,6 +2,7 @@ import { useState } from "react";
 import type { auth } from "./auth";
 import { loginUser } from "../api/axios/auth.api";
 import { useNavigate } from "react-router-dom";
+import Cookies from "js-cookie";
 
 interface LoginErrors {
   email?: string;
@@ -62,10 +63,24 @@ export const useAuth = () => {
 
     try {
       const response = await loginUser(formData.email, formData.contraseña);
+      console.log(response);
+
       const user = (response as { user: any }).user;
-      navigate("/inicio");
-      return user;
-    } catch (error) {}
+
+      if (user) {
+        // 🔑 guardar el usuario (o un token si tu backend lo da) en cookie
+        Cookies.set("auth_token", JSON.stringify(user), {
+          expires: 1, // 1 día (puedes ajustar)
+          secure: true, // solo HTTPS
+          sameSite: "strict",
+        });
+
+        navigate("/inicio");
+        return user;
+      }
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleKeyPress = (e: React.KeyboardEvent) => {
