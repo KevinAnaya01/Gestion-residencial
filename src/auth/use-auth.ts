@@ -3,6 +3,7 @@ import type { auth } from "./auth";
 import { loginUser } from "../api/axios/auth.api";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 
 interface LoginErrors {
   email?: string;
@@ -58,6 +59,7 @@ export const useAuth = () => {
 
     if (Object.keys(newErrors).length > 0) {
       setErrors(newErrors);
+      toast.error("Por favor completa todos los campos correctamente.");
       return;
     }
 
@@ -68,21 +70,22 @@ export const useAuth = () => {
       const user = (response as { user: any }).user;
 
       if (user) {
-        // 🔑 guardar el usuario (o un token si tu backend lo da) en cookie
         Cookies.set("auth_token", JSON.stringify(user), {
-          expires: 1, // 1 día (puedes ajustar)
-          secure: true, // solo HTTPS
+          expires: 1, // 1 día
+          secure: true,
           sameSite: "strict",
         });
 
         navigate("/inicio");
         return user;
+      } else {
+        toast.error("Credenciales incorrectas. Intenta de nuevo.");
       }
     } catch (error) {
-      console.error(error);
+      
+      toast.error(error.message || "Error de autenticación. Intenta de nuevo.");
     }
   };
-
   const handleKeyPress = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleSubmit();
