@@ -3,11 +3,13 @@ import Login from "./Login";
 import "./App.css";
 import { Inicio } from "./Inicio";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { Toaster } from "react-hot-toast";
 
 
 function App() {
   return (
     <div className="App">
+      <Toaster position="top-right" reverseOrder={false} />
       <BrowserRouter>
         <Routes>
           {/* Ruta predeterminada - redirige a login */}
