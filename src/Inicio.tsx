@@ -1,4 +1,4 @@
-// 
+//
 import React from "react";
 import { Home, Users, UserCheck, ClipboardList, LogOut } from "lucide-react";
 import Cookies from "js-cookie";
@@ -9,6 +9,9 @@ export const Inicio: React.FC = () => {
 
   // Aquí puedes obtener los datos reales desde el backend o el contexto
   const usuario = Cookies.get("auth_token") || "Usuario";
+  const jsonUsuario = JSON.parse(usuario);
+  const Nombre = jsonUsuario.correo;
+
   const rol = "Administrador"; // <- este dato deberías traerlo del backend al iniciar sesión
 
   const handleLogout = () => {
@@ -20,10 +23,12 @@ export const Inicio: React.FC = () => {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col">
       {/* Header */}
       <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">Gestión Residencial</h1>
+        <h1 className="text-2xl font-bold text-gray-800">
+          Gestión Residencial
+        </h1>
         <div className="flex items-center space-x-4">
           <p className="text-gray-600">
-            Bienvenido, <span className="font-semibold">{usuario}</span> ({rol})
+            Bienvenido, <span className="font-semibold">{Nombre}</span> ({rol})
           </p>
           <button
             onClick={handleLogout}
@@ -41,7 +46,7 @@ export const Inicio: React.FC = () => {
           Panel de Inicio
         </h2>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {/* Card Apartamentos */}
           <div className="bg-white shadow-lg rounded-xl p-6 hover:shadow-xl transition cursor-pointer">
             <Home className="w-10 h-10 text-blue-600 mb-4" />
