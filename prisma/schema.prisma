@@ -12,3 +12,11 @@ model usuario {
   correo     String? @db.VarChar(30)
   contrase_a String? @map("contraseña") @db.VarChar(50)
 }
+
+model apartamento {
+  id              Int     @id @default(autoincrement())
+  torre           String? @db.VarChar(30)
+  bloque          String? @db.VarChar(30)
+  piso            String? @db.VarChar(30)
+  tipoapartamento String? @db.VarChar(30)
+}
