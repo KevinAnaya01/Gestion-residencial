@@ -56,7 +56,10 @@ export const Inicio: React.FC = () => {
             <p className="text-sm text-gray-500 mb-4">
               Administra y consulta información de los apartamentos.
             </p>
-            <button className="text-blue-600 hover:text-blue-800 font-medium">
+            <button
+              onClick={() => navigate("/apartamento")} // 👈 Navegación agregada
+              className="text-blue-600 hover:text-blue-800 font-medium"
+            >
               Entrar →
             </button>
           </div>

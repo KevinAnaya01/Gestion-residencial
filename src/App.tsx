@@ -4,7 +4,7 @@ import "./App.css";
 import { Inicio } from "./Inicio";
 import { ProtectedRoute } from "./ProtectedRoute";
 import { Toaster } from "react-hot-toast";
-
+import { Apartamento } from "./apartamento";
 
 function App() {
   return (
@@ -24,6 +24,19 @@ function App() {
               <Inicio />
             </ProtectedRoute>
           } />
+
+          {/* Ruta protegida para Apartamentos */}
+          <Route
+            path="/apartamento"
+            element={
+              <ProtectedRoute>
+                <Apartamento />
+              </ProtectedRoute>
+            }
+          />
+          
+
+          {/* 🏢 Nueva ruta protegida para Apartamentos */}
           
           {/* Ruta para páginas no encontradas - redirige a login */}
           <Route path="*" element={<Navigate to="/login" replace />} />
