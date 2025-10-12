@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useApartamento } from "./apartamentos/use-apartamento";
 import type { apartamento } from "./apartamentos/apartamento";
 import { FormularioApartamento } from "./apartamentos/Formulario";
+import { Header } from "./Header";
 
 export const Apartamento: React.FC = () => {
   const {
@@ -63,6 +64,9 @@ export const Apartamento: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col">
+      {/* ✅ Header reutilizable */}
+      <Header titulo="Gestión de Apartamentos" />
+
       {/* Contenido principal */}
       <main className="flex-1 p-8">
         {/* Botón para volver y registrar */}
@@ -78,7 +82,13 @@ export const Apartamento: React.FC = () => {
             onClick={() => {
               setMostrarFormulario(true);
               setApartamentoEdit(null);
-              setFormData({ id: 0, torre: "", bloque: "", piso: "", tipoapartamento: "" });
+              setFormData({
+                id: 0,
+                torre: "",
+                bloque: "",
+                piso: "",
+                tipoapartamento: "",
+              });
             }}
             className="flex items-center bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"
           >
