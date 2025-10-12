@@ -20,3 +20,4 @@ model apartamento {
   piso            String? @db.VarChar(30)
   tipoapartamento String? @db.VarChar(30)
 }
+
