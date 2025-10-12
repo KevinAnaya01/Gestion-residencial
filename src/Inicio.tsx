@@ -1,44 +1,17 @@
-//
+// src/pages/Inicio.tsx
 import React from "react";
-import { Home, Users, UserCheck, ClipboardList, LogOut } from "lucide-react";
-import Cookies from "js-cookie";
+import { Home, Users, UserCheck, ClipboardList } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { Header } from "./Header";
+
 
 export const Inicio: React.FC = () => {
   const navigate = useNavigate();
 
-  // Aquí puedes obtener los datos reales desde el backend o el contexto
-  const usuario = Cookies.get("auth_token") || "Usuario";
-  const jsonUsuario = JSON.parse(usuario);
-  const Nombre = jsonUsuario.correo;
-
-  const rol = "Administrador"; // <- este dato deberías traerlo del backend al iniciar sesión
-
-  const handleLogout = () => {
-    Cookies.remove("auth_token");
-    navigate("/login");
-  };
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-indigo-50 flex flex-col">
-      {/* Header */}
-      <header className="bg-white shadow-md p-4 flex justify-between items-center">
-        <h1 className="text-2xl font-bold text-gray-800">
-          Gestión Residencial
-        </h1>
-        <div className="flex items-center space-x-4">
-          <p className="text-gray-600">
-            Bienvenido, <span className="font-semibold">{Nombre}</span> ({rol})
-          </p>
-          <button
-            onClick={handleLogout}
-            className="flex items-center space-x-2 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg"
-          >
-            <LogOut className="w-5 h-5" />
-            <span>Salir</span>
-          </button>
-        </div>
-      </header>
+      {/* Header reutilizable */}
+      <Header titulo="Gestión Residencial" />
 
       {/* Contenido principal */}
       <main className="flex-1 p-8">
@@ -57,7 +30,7 @@ export const Inicio: React.FC = () => {
               Administra y consulta información de los apartamentos.
             </p>
             <button
-              onClick={() => navigate("/apartamento")} // 👈 Navegación agregada
+              onClick={() => navigate("/apartamento")}
               className="text-blue-600 hover:text-blue-800 font-medium"
             >
               Entrar →
