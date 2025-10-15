@@ -1,10 +1,10 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Login from "./Login";
-import "./App.css";
-import { Inicio } from "./Inicio";
-import { ProtectedRoute } from "./ProtectedRoute";
+import "./styles/App.css";
+import { ProtectedRoute } from "./context/ProtectedRoute";
 import { Toaster } from "react-hot-toast";
-import { Apartamento } from "./apartamento";
+import { Apartamento } from "./pages/apartamentos/views/apartamento";
+import { Inicio } from "./pages/home/Inicio";
+import Login from "./pages/auth/views/Login";
 
 function App() {
   return (
@@ -14,16 +14,19 @@ function App() {
         <Routes>
           {/* Ruta predeterminada - redirige a login */}
           <Route path="/" element={<Navigate to="/login" replace />} />
-          
+
           {/* Ruta de Login */}
           <Route path="/login" element={<Login />} />
-          
+
           {/* Ruta de Inicio */}
-          <Route path="/inicio" element={
-            <ProtectedRoute>
-              <Inicio />
-            </ProtectedRoute>
-          } />
+          <Route
+            path="/inicio"
+            element={
+              <ProtectedRoute>
+                <Inicio />
+              </ProtectedRoute>
+            }
+          />
 
           {/* Ruta protegida para Apartamentos */}
           <Route
@@ -34,10 +37,9 @@ function App() {
               </ProtectedRoute>
             }
           />
-          
 
           {/* 🏢 Nueva ruta protegida para Apartamentos */}
-          
+
           {/* Ruta para páginas no encontradas - redirige a login */}
           <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
