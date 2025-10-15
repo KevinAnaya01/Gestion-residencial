@@ -1,4 +1,4 @@
-import type { apartamento } from "../../apartamentos/apartamento";
+import type { apartamento } from "../../pages/apartamentos/interface/apartamento";
 import api from "./axiosConfig";
 
 export const obtenerApartamentos = async () => {
